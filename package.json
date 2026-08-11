@@ -1,0 +1,7 @@
+{
+  "name": "hyperlocal-learning-root",
+  "private": true,
+  "scripts": {
+    "build": "npm --prefix app install && npm --prefix app run build"
+  }
+}
