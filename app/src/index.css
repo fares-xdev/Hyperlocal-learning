@@ -159,6 +159,7 @@
   border-radius: 0.75rem;
   padding: 1.25rem;
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
   margin-top: 0.75rem;
   margin-bottom: 1.5rem;
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Fira Code', monospace;
@@ -178,6 +179,8 @@
   border: 1px solid rgba(51, 65, 85, 0.5);
   direction: ltr;
   display: inline-block;
+  max-width: 100%;
+  word-break: break-word;
 }
 
 .markdown-body pre code {
@@ -187,17 +190,20 @@
   color: inherit;
   font-size: inherit;
   display: block;
+  word-break: normal;
 }
 
 .markdown-body table {
   width: 100%;
+  display: block;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
   border-collapse: separate;
   border-spacing: 0;
   margin-top: 1rem;
   margin-bottom: 1.5rem;
   font-size: 0.875rem;
   border-radius: 0.75rem;
-  overflow: hidden;
   border: 1px solid #334155;
 }
 
@@ -206,6 +212,16 @@
   border-left: 1px solid #1e293b;
   padding: 0.75rem 1rem;
   text-align: right;
+  white-space: nowrap;
+}
+
+@media (min-width: 640px) {
+  .markdown-body table {
+    display: table;
+  }
+  .markdown-body th, .markdown-body td {
+    white-space: normal;
+  }
 }
 
 .markdown-body th:first-child, .markdown-body td:first-child {
@@ -236,4 +252,22 @@
   height: 1px;
   background: linear-gradient(to right, transparent, #334155, transparent);
   margin: 2.25rem 0;
+}
+
+@media (max-width: 640px) {
+  .markdown-body h1 {
+    font-size: 1.45rem;
+    margin-top: 1.25rem;
+  }
+  .markdown-body h2 {
+    font-size: 1.2rem;
+    margin-top: 1.25rem;
+  }
+  .markdown-body h3 {
+    font-size: 1.05rem;
+  }
+  .markdown-body pre {
+    padding: 0.85rem;
+    font-size: 0.8rem;
+  }
 }

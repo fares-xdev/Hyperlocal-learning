@@ -103,50 +103,50 @@ export const LessonViewer: React.FC = () => {
   const isLastSection = currentSectionIndex === sections.length - 1;
 
   return (
-    <main className="flex-1 bg-slate-950 p-6 md:p-10 overflow-y-auto h-[calc(100vh-4rem)] font-sans text-right" dir="rtl">
+    <main className="flex-1 bg-slate-950 p-3 sm:p-6 md:p-10 overflow-y-auto h-[calc(100vh-4rem)] font-sans text-right" dir="rtl">
       <div className="max-w-4xl mx-auto">
         {/* Session Header Banner */}
-        <div className="mb-6 p-6 rounded-2xl border border-slate-800 bg-gradient-to-r from-slate-900 via-slate-900/90 to-slate-950 shadow-xl">
-          <div className="flex items-center justify-between gap-3 mb-3 flex-wrap">
-            <div className="flex items-center gap-2">
-              <span className="text-xs font-mono font-bold uppercase bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 px-2.5 py-0.5 rounded">
+        <div className="mb-4 sm:mb-6 p-3.5 sm:p-6 rounded-2xl border border-slate-800 bg-gradient-to-r from-slate-900 via-slate-900/90 to-slate-950 shadow-xl">
+          <div className="flex items-center justify-between gap-2.5 mb-3 flex-wrap">
+            <div className="flex items-center gap-1.5 flex-wrap">
+              <span className="text-[10px] sm:text-xs font-mono font-bold uppercase bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 px-2 py-0.5 rounded">
                 اليوم {currentSession.day === 1 ? 'الأول' : 'الثاني'} • الجلسة {currentSession.id} من {sessions.length}
               </span>
               {exitTargetPassed[currentSession.id] && (
-                <span className="text-xs font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-0.5 rounded flex items-center gap-1">
+                <span className="text-[10px] sm:text-xs font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded flex items-center gap-1">
                   <CheckCircle2 className="w-3.5 h-3.5" /> تم إتقان هدف الخروج
                 </span>
               )}
             </div>
 
             {/* View Mode Selector Switcher */}
-            <div className="flex items-center bg-slate-950/80 p-1 rounded-xl border border-slate-800">
+            <div className="flex items-center bg-slate-950/80 p-1 rounded-xl border border-slate-800 text-[11px] sm:text-xs">
               <button
                 onClick={() => setViewMode('full')}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                className={`flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1 rounded-lg font-medium transition-all ${
                   viewMode === 'full'
                     ? 'bg-indigo-600 text-white shadow-sm'
                     : 'text-slate-400 hover:text-slate-200'
                 }`}
               >
                 <FileText className="w-3.5 h-3.5" />
-                <span>المستند الكامل (كل الأقسام)</span>
+                <span>المستند الكامل</span>
               </button>
               <button
                 onClick={() => setViewMode('tabs')}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                className={`flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1 rounded-lg font-medium transition-all ${
                   viewMode === 'tabs'
                     ? 'bg-indigo-600 text-white shadow-sm'
                     : 'text-slate-400 hover:text-slate-200'
                 }`}
               >
                 <Layers className="w-3.5 h-3.5" />
-                <span>تصفح بالأقسام المتبوعة ({sections.length})</span>
+                <span>تصفح بالأقسام ({sections.length})</span>
               </button>
             </div>
           </div>
 
-          <h1 className="text-2xl md:text-3xl font-extrabold text-slate-100 tracking-tight mb-3">
+          <h1 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-slate-100 tracking-tight mb-2 sm:mb-3">
             {currentSession.title}
           </h1>
           <p className="text-sm text-slate-300 leading-relaxed">
@@ -349,11 +349,11 @@ export const LessonViewer: React.FC = () => {
 
         {/* Main Content Render Area */}
         {viewMode === 'full' ? (
-          <article className="markdown-body bg-slate-900/40 border border-slate-800/80 rounded-2xl p-6 md:p-10 shadow-md text-right space-y-10" dir="rtl">
+          <article className="markdown-body bg-slate-900/40 border border-slate-800/80 rounded-2xl p-4 sm:p-6 md:p-10 shadow-md text-right space-y-10" dir="rtl">
             <div dangerouslySetInnerHTML={renderMarkdownHTML(currentSession.rawContent)} />
           </article>
         ) : (
-          <article className="markdown-body bg-slate-900/40 border border-slate-800/80 rounded-2xl p-6 md:p-8 shadow-md text-right" dir="rtl">
+          <article className="markdown-body bg-slate-900/40 border border-slate-800/80 rounded-2xl p-4 sm:p-6 md:p-8 shadow-md text-right" dir="rtl">
             {currentSection && (
               <div dangerouslySetInnerHTML={renderMarkdownHTML(currentSection.content)} />
             )}

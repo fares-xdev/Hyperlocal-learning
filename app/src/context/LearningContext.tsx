@@ -14,6 +14,7 @@ interface LearningContextType {
   exitTargetPassed: Record<string, boolean>;
   lockNavigation: boolean;
   isTutorOpen: boolean;
+  isSidebarOpen: boolean;
   tutorMessages: TutorMessage[];
   isGlossaryOpen: boolean;
   isSystemMapOpen: boolean;
@@ -29,6 +30,7 @@ interface LearningContextType {
   markSessionMastered: (sessionId: string) => void;
   toggleLockNavigation: () => void;
   setTutorOpen: (open: boolean) => void;
+  setSidebarOpen: (open: boolean) => void;
   sendTutorMessage: (text: string, quickAction?: string) => Promise<void>;
   setGlossaryOpen: (open: boolean) => void;
   setSystemMapOpen: (open: boolean) => void;
@@ -53,6 +55,7 @@ export const LearningProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const [tutorMessagesMap, setTutorMessagesMap] = useState<Record<string, TutorMessage[]>>({});
 
   const [isTutorOpen, setIsTutorOpen] = useState<boolean>(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
   const [isGlossaryOpen, setIsGlossaryOpen] = useState<boolean>(false);
   const [isSystemMapOpen, setIsSystemMapOpen] = useState<boolean>(false);
 
@@ -310,6 +313,7 @@ export const LearningProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         exitTargetPassed,
         lockNavigation,
         isTutorOpen,
+        isSidebarOpen,
         tutorMessages: currentTutorMessages,
         isGlossaryOpen,
         isSystemMapOpen,
@@ -324,6 +328,7 @@ export const LearningProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         toggleLockNavigation,
         resetAllProgress,
         setTutorOpen: setIsTutorOpen,
+        setSidebarOpen: setIsSidebarOpen,
         sendTutorMessage,
         setGlossaryOpen: setIsGlossaryOpen,
         setSystemMapOpen: setIsSystemMapOpen,

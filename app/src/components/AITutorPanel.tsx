@@ -40,7 +40,12 @@ export const AITutorPanel: React.FC = () => {
   };
 
   return (
-    <aside className="w-96 border-r border-slate-800 bg-slate-950 flex flex-col h-[calc(100vh-4rem)] fixed left-0 top-16 z-40 shadow-2xl animate-in slide-in-from-left duration-200 font-sans text-right" dir="rtl">
+    <div className="fixed inset-0 z-50 pointer-events-none" dir="rtl">
+      <div
+        className="fixed inset-0 bg-slate-950/70 backdrop-blur-sm pointer-events-auto transition-opacity"
+        onClick={() => setTutorOpen(false)}
+      />
+      <aside className="w-full sm:w-96 max-w-full border-r border-slate-800 bg-slate-950 flex flex-col h-[calc(100vh-4rem)] fixed left-0 top-16 z-40 shadow-2xl animate-in slide-in-from-left duration-200 font-sans text-right pointer-events-auto">
       {/* Header */}
       <div className="p-4 border-b border-slate-800 bg-slate-900/90 flex items-center justify-between">
         <div className="flex items-center gap-2.5">
@@ -156,5 +161,6 @@ export const AITutorPanel: React.FC = () => {
         </form>
       </div>
     </aside>
+    </div>
   );
 };

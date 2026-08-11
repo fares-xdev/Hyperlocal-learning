@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLearning } from '../context/LearningContext';
-import { CheckCircle2, Lock, Sparkles, ChevronLeft } from 'lucide-react';
+import { CheckCircle2, Lock, Sparkles, ChevronLeft, X } from 'lucide-react';
 
 export const Sidebar: React.FC = () => {
   const {
@@ -10,11 +10,18 @@ export const Sidebar: React.FC = () => {
     completedSessions,
     unlockedSessions,
     lockNavigation,
-    exitTargetPassed
+    exitTargetPassed,
+    isSidebarOpen,
+    setSidebarOpen
   } = useLearning();
 
   const day1Sessions = sessions.filter(s => s.day === 1);
   const day2Sessions = sessions.filter(s => s.day === 2);
+
+  const handleSelectSession = (id: string) => {
+    selectSession(id);
+    setSidebarOpen(false);
+  };
 
   const renderSessionItem = (s: any) => {
     const isCurrent = s.id === currentSession.id;
@@ -24,7 +31,7 @@ export const Sidebar: React.FC = () => {
     return (
       <button
         key={s.id}
-        onClick={() => isUnlocked && selectSession(s.id)}
+        onClick={() => isUnlocked && handleSelectSession(s.id)}
         disabled={!isUnlocked}
         className={`w-full text-right p-3 rounded-lg border transition-all flex items-start justify-between group ${
           isCurrent
@@ -72,10 +79,20 @@ export const Sidebar: React.FC = () => {
   const day1Mastered = day1Sessions.filter(s => completedSessions.includes(s.id)).length;
   const day2Mastered = day2Sessions.filter(s => completedSessions.includes(s.id)).length;
 
-  return (
-    <aside className="w-72 border-l border-slate-800 bg-slate-950 flex flex-col h-[calc(100vh-4rem)] overflow-y-auto p-4 shrink-0 font-sans" dir="rtl">
+  const sidebarContent = (
+    <div className="p-4 space-y-6 font-sans text-right" dir="rtl">
+      <div className="flex items-center justify-between lg:hidden pb-3 border-b border-slate-800">
+        <span className="text-xs font-bold text-slate-200 font-mono">قائمة الجلسات (17 جلسة)</span>
+        <button
+          onClick={() => setSidebarOpen(false)}
+          className="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800"
+        >
+          <X className="w-4 h-4" />
+        </button>
+      </div>
+
       {/* Day 1 Section */}
-      <div className="mb-6">
+      <div>
         <div className="flex items-center justify-between px-2 mb-2.5">
           <span className="text-xs font-bold font-mono tracking-wider uppercase text-slate-400">
             اليوم الأول — الأساسيات
@@ -103,6 +120,28 @@ export const Sidebar: React.FC = () => {
           {day2Sessions.map(renderSessionItem)}
         </div>
       </div>
-    </aside>
+    </div>
+  );
+
+  return (
+    <>
+      {/* Desktop Permanent Sidebar */}
+      <aside className="hidden lg:block w-72 border-l border-slate-800 bg-slate-950 h-[calc(100vh-4rem)] overflow-y-auto shrink-0 font-sans">
+        {sidebarContent}
+      </aside>
+
+      {/* Mobile Drawer Overlay */}
+      {isSidebarOpen && (
+        <div className="fixed inset-0 z-50 lg:hidden flex" dir="rtl">
+          <div
+            className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm transition-opacity"
+            onClick={() => setSidebarOpen(false)}
+          />
+          <aside className="relative right-0 w-80 max-w-[85vw] bg-slate-950 border-l border-slate-800 h-full overflow-y-auto shadow-2xl z-10 animate-in slide-in-from-right duration-200">
+            {sidebarContent}
+          </aside>
+        </div>
+      )}
+    </>
   );
 };
